@@ -17,3 +17,9 @@ class Post(models.Model):
 
 	def __str__(self):
 		return self.title
+
+class Bronze(models.Model):
+	class Meta:
+		db_table = 'goldrodger'
+	code = models.IntegerField(primary_key=True)
+	pbr = models.FloatField()
