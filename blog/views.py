@@ -49,5 +49,51 @@ def post_gold(request):
 		print(gamgyul)
 		return JsonResponse(gamgyul, safe=False)
 		
-			#return HttpResponse(data, content_type="json", context_instance=RequestContext(request))
-	#return render_to_response('blog/gold.html', "{'samdasu': 'nothing'}")
+def mine_gold(request):
+	rocks=[]
+	mining=[]
+	for line in open('test.json', 'r'):
+		rocks.append(json.loads(line))
+
+	for i in range(0, len(rocks)):
+		code = rocks[i].get('code')
+		sales = rocks[i].get('sales')
+		businessprofits = rocks[i].get('businessprofits')
+		continuing = rocks[i].get('continuing')
+		netincome = rocks[i].get('netincome')
+		netincomeruling = rocks[i].get('netincomeruling')
+		netincomenon = rocks[i].get('netincomenon')
+		asset = rocks[i].get('asset')
+		liabilities = rocks[i].get('liabilities')
+		totalequities = rocks[i].get('totalequities')
+		totalequitiesruling = rocks[i].get('totalequitiesruling')
+		totalequitiesnon = rocks[i].get('totalequitiesnon')
+		eqities = rocks[i].get('eqities')
+		cashbusiness = rocks[i].get('cashbusiness')
+		cashinvestment = rocks[i].get('cashinvestment')
+		cashfinance = rocks[i].get('cashfinance')
+		capex = rocks[i].get('capex')
+		fcf	= rocks[i].get('fcf')
+		ibl = rocks[i].get('ibl')
+		roop = rocks[i].get('roop')
+		netprofitmargin = rocks[i].get('netprofitmargin')
+		roe = rocks[i].get('roe')
+		roa = rocks[i].get('roa')
+		debtratio = rocks[i].get('debtratio')
+		err = rocks[i].get('err')
+		eps = rocks[i].get('eps')
+		per = rocks[i].get('per')
+		bps = rocks[i].get('bps')
+		pbr = rocks[i].get('pbr')
+		dps = rocks[i].get('dps')
+		rcdp = rocks[i].get('rcdp')
+		cdr = rocks[i].get('cdr')
+		stock = rocks[i].get('stock')
+		mining.append(Bronze(code=code,sales=sales,businessprofits = businessprofits, continuing = continuing, netincome = netincome, netincomeruling = netincomeruling, 
+							netincomenon = netincomenon, asset = asset, liabilities = liabilities, totalequities = totalequities, totalequitiesruling = totalequitiesruling, 
+							totalequitiesnon = totalequitiesnon, eqities = eqities, cashbusiness = cashbusiness, cashinvestment = cashinvestment,
+							cashfinance = cashfinance, capex = capex, fcf = fcf, ibl = ibl, roop = roop, netprofitmargin = netprofitmargin, roe = roe, 
+							roa = roa, debtratio = debtratio, err = err, eps = eps, per = per, bps = bps, pbr = pbr, dps = dps, rcdp = rcdp, cdr = cdr,stock = stock))
+	#alist = [Entry(headline=val) for val in values]
+	Bronze.objects.bulk_create(mining)
+	return render(request, 'blog/gold.html',{'form': "success"})
