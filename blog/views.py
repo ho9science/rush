@@ -43,8 +43,7 @@ def post_gold(request):
 	if not samdasu:
 		return JsonResponse({'samdasu':'none'})		
 	else:
-		code = int(samdasu)
-		jeju = Bronze.objects.filter(code=code)
+		jeju = Bronze.objects.filter(code=samdasu)
 		gamgyul = serializers.serialize('json', jeju)
 		print(gamgyul)
 		return JsonResponse(gamgyul, safe=False)
@@ -97,3 +96,18 @@ def mine_gold(request):
 	#alist = [Entry(headline=val) for val in values]
 	Bronze.objects.bulk_create(mining)
 	return render(request, 'blog/gold.html',{'form': "success"})
+
+def wash_gold(request):
+	form_class = SearchForm(request.POST)
+	return render(request, 'blog/washingold.html',{'form': form_class})
+
+@csrf_exempt
+def alluvialmining(request):
+	samdasu = request.POST.get('samdasu')
+	if not samdasu:
+		return JsonResponse({'samdasu':'none'})
+	else:
+		jeju = Bronze.objects.values('code')
+		gamgyul = serializers.serialize('json', jeju)
+		print(gamgyul)
+		return JsonResponse(gamgyul, safe=False)

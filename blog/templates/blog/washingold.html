@@ -1,0 +1,23 @@
+{% extends 'blog/au.html' %}
+{% block content %}
+	<h2>washing gold</h2>
+    <div class="post">
+        <form method="POST" id="post-form">
+        {% csrf_token %}
+        {{form.as_p}}
+        <select name="conditon" id="condition">
+            <option value="per">PER</option>
+            <option value="pbr">PBR</option>
+        </select>
+
+        <button type="button" name="search" onclick="alluvialmining()">검색</button>
+        </form>
+        <div class="result_div">
+            <table class="table table-hover">
+                <tbody id="result_tbody">
+                    
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}

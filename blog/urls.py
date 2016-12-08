@@ -7,5 +7,7 @@ urlpatterns = [
 	url(r'^post/new/$', views.post_new, name='post_new'),
 	url(r'^post/gold/$', views.view_gold, name='view_gold'),
 	url(r'^gold_post/$', views.post_gold, name="post_gold"),
-	url(r'^mine_gold/$', views.mine_gold, name="mine_gold")
+	url(r'^mine_gold/$', views.mine_gold, name="mine_gold"),
+	url(r'^wash_gold/$', views.wash_gold, name="wash_gold"),
+	url(r'^alluvialmining/$', views.alluvialmining, name='alluvialmining')
 ]

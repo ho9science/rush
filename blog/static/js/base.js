@@ -14,7 +14,11 @@ function gold_post(){
 		},
 		success : function(json){
 			$("#id_srch").val('');
+
 			var data = JSON.parse(json);
+			if(data[0]==null){
+				$("#result_tbody").append("<tr><td>code</td><td><a title='stock code'>no result</a></td></tr>");	
+			}else{
 			$("#result_tbody").append("<tr><th> </th><th>2015</th></tr>");
 			$("#result_tbody").append("<tr><td>code</td><td><a title='stock code'>"+data[0].pk+"</a></td></tr>");
 			$("#result_tbody").append("<tr><td>매출액</td><td>"+data[0].fields.sales+"</td></tr>");
@@ -49,10 +53,30 @@ function gold_post(){
 			$("#result_tbody").append("<tr><td>현금배당수익률</td><td>"+data[0].fields.rcdp+"</td></tr>");
 			$("#result_tbody").append("<tr><td>현금배당성향</td><td>"+data[0].fields.cdr+"</td></tr>");
 			$("#result_tbody").append("<tr><td>주식수</td><td>"+data[0].fields.stock+"</td></tr>");
+			}
 		},
 		error : function(xhr){
 			console.log(xhr.status+": "+xhr.responseText);
 		}
 	})
+}
+function alluvialmining(){
+	console.log("is working");
+	var csrf = $("input[name='csrfmiddlewaretoken']").val();
+	var condition = $('#condition').val();
+	console.log(condition)
+	$.ajax({
+		url : "/alluvialmining/",
+		type : "POST",
+		data : { 'samdasu' : condition, 'csrfmiddlewaretoken': csrf },
+		beforeSend : function(){
+			$("#result_tbody").empty();
+		},
+		success : function(json){
+			console.log(json)
+			var data = JSON.parse(json);
+			$("#result_tbody").append(json);	
+		}
+	});
 }
 // using jQuery

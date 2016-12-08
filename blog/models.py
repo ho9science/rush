@@ -21,7 +21,7 @@ class Post(models.Model):
 class Bronze(models.Model):
 	class Meta:
 		db_table = 'goldrodger'
-	code = models.CharField(primary_key=True, max_length=6)
+	code = models.CharField(primary_key=True, max_length=7)
 	sales = models.IntegerField()
 	businessprofits = models.IntegerField()
 	continuing = models.IntegerField()
