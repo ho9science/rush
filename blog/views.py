@@ -7,6 +7,7 @@ from .forms import SearchForm
 from django.shortcuts import redirect
 from django.http import HttpResponse
 from django.http import JsonResponse
+from django.http import QueryDict
 import json
 from django.core import serializers
 from django.views.decorators.csrf import csrf_exempt
@@ -98,16 +99,33 @@ def mine_gold(request):
 	return render(request, 'blog/gold.html',{'form': "success"})
 
 def wash_gold(request):
-	form_class = SearchForm(request.POST)
-	return render(request, 'blog/washingold.html',{'form': form_class})
+	return render(request, 'blog/washingold.html',{})
 
 @csrf_exempt
 def alluvialmining(request):
-	samdasu = request.POST.get('samdasu')
-	if not samdasu:
-		return JsonResponse({'samdasu':'none'})
-	else:
-		jeju = Bronze.objects.values('code')
-		gamgyul = serializers.serialize('json', jeju)
-		print(gamgyul)
-		return JsonResponse(gamgyul, safe=False)
+	#samdasu = request.POST.get('samdasu')
+	#value = request.POST.get('value');
+	try:
+		samdasu = request.body;
+		print(samdasu)
+		if not samdasu:
+			return JsonResponse({'samdasu':'none'})
+		else:
+			q = QueryDict(samdasu)
+			myDict = dict(q)
+			
+			ssamba = myDict.get('condition');
+			ssamja = myDict.get('operator');
+			value = myDict.get('value');
+			
+			ore = {}
+			ore.update({'{0}__{1}'.format(ssamba[0],ssamja[0]):value[0]})
+			
+			#ore.update({'{0}__{1}'.format('pbr','gt'):1});
+			jeju = Bronze.objects.filter(**ore).order_by('per')[:5]
+			
+			gamgyul = serializers.serialize('json', jeju)
+			print(gamgyul)
+			return JsonResponse(gamgyul, safe=False)
+	except Exception as err:
+		print(err);

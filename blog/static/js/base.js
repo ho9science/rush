@@ -64,18 +64,28 @@ function alluvialmining(){
 	console.log("is working");
 	var csrf = $("input[name='csrfmiddlewaretoken']").val();
 	var condition = $('#condition').val();
-	console.log(condition)
+	var value = $('#value').val();
+	
+	var formdata = $('#washing-form').serialize();
+	
 	$.ajax({
 		url : "/alluvialmining/",
 		type : "POST",
-		data : { 'samdasu' : condition, 'csrfmiddlewaretoken': csrf },
+		//data : { 'samdasu' : condition, 'value':value, 'csrfmiddlewaretoken': csrf },
+		data : formdata,
 		beforeSend : function(){
 			$("#result_tbody").empty();
 		},
 		success : function(json){
-			console.log(json)
+			console.log(json);
 			var data = JSON.parse(json);
-			$("#result_tbody").append(json);	
+			if(data[0]==null){
+				$("#result_tbody").append("<tr><td>no</td><td>result</td><td></td></tr>");	
+			}else{
+				$.each(data, function(i, item){
+					$("#result_tbody").append("<tr><td>"+(i+1)+"</td><td>"+item.pk+"</td><td></td></tr>");	
+				});
+			}
 		}
 	});
 }

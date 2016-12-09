@@ -2,20 +2,25 @@
 {% block content %}
 	<h2>washing gold</h2>
     <div class="post">
-        <form method="POST" id="post-form">
+        <form method="POST" id="washing-form" name="washing-form">
         {% csrf_token %}
-        {{form.as_p}}
-        <select name="conditon" id="condition">
+        <select name="condition" id="condition">
             <option value="per">PER</option>
             <option value="pbr">PBR</option>
         </select>
-
+        <select name="operator" id="operator">
+            <option value="gt">></option>
+            <option value="gte">>=</option>
+            <option value="lt"><</option>
+            <option value="lte"><=</option>
+        </select>
+        <input type="text" id="value" name="value" required>
         <button type="button" name="search" onclick="alluvialmining()">검색</button>
         </form>
         <div class="result_div">
             <table class="table table-hover">
                 <tbody id="result_tbody">
-                    
+                    <th>ranking</th><th>code</th>
                 </tbody>
             </table>
         </div>
