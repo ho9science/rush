@@ -52,43 +52,107 @@ def post_gold(request):
 def mine_gold(request):
 	rocks=[]
 	mining=[]
-	for line in open('test.json', 'r'):
+	for line in open('stock2015.json', 'r'):
 		rocks.append(json.loads(line))
 
 	for i in range(0, len(rocks)):
 		code = rocks[i].get('code')
 		sales = rocks[i].get('sales')
+		if sales is None:
+			sales = 0;
 		businessprofits = rocks[i].get('businessprofits')
+		if businessprofits is None:
+			businessprofits = 0
 		continuing = rocks[i].get('continuing')
+		if continuing is None:
+			continuing = 0
 		netincome = rocks[i].get('netincome')
+		if netincome is None:
+			netincoem = 0
 		netincomeruling = rocks[i].get('netincomeruling')
+		if netincomeruling is None:
+			netincomeruling = 0
 		netincomenon = rocks[i].get('netincomenon')
+		if netincomenon is None:
+			netincomenon = 0
 		asset = rocks[i].get('asset')
+		if asset is None:
+			asset = 0
 		liabilities = rocks[i].get('liabilities')
+		if liabilities is None:
+			liabilities = 0
 		totalequities = rocks[i].get('totalequities')
+		if totalequities is None:
+			totalequities = 0
 		totalequitiesruling = rocks[i].get('totalequitiesruling')
+		if totalequitiesruling is None:
+			totalequitiesruling = 0
 		totalequitiesnon = rocks[i].get('totalequitiesnon')
+		if totalequitiesnon is None:
+			totalequitiesnon = 0
 		eqities = rocks[i].get('eqities')
+		if eqities is None:
+			eqities = 0
 		cashbusiness = rocks[i].get('cashbusiness')
+		if cashbusiness is None:
+			cashbusiness = 0
 		cashinvestment = rocks[i].get('cashinvestment')
+		if cashinvestment is None:
+			cashinvestment = 0
 		cashfinance = rocks[i].get('cashfinance')
+		if cashfinance is None:
+			cashfinance = 0
 		capex = rocks[i].get('capex')
+		if capex is None:
+			capex = 0
 		fcf	= rocks[i].get('fcf')
+		if fcf is None:
+			fcf = 0
 		ibl = rocks[i].get('ibl')
+		if ibl is None:
+			ibl = 0
 		roop = rocks[i].get('roop')
+		if roop is None:
+			roop = 0
 		netprofitmargin = rocks[i].get('netprofitmargin')
+		if netprofitmargin is None:
+			netprofitmargin = 0
 		roe = rocks[i].get('roe')
+		if roe is None:
+			roe = 0
 		roa = rocks[i].get('roa')
+		if roa is None:
+			roa = 0
 		debtratio = rocks[i].get('debtratio')
+		if debtratio is None:
+			debtratio = 0
 		err = rocks[i].get('err')
+		if err is None:
+			err = 0
 		eps = rocks[i].get('eps')
+		if eps is None:
+			eps = 0
 		per = rocks[i].get('per')
+		if per is None:
+			per = 0
 		bps = rocks[i].get('bps')
+		if bps is None:
+			bps = 0
 		pbr = rocks[i].get('pbr')
+		if pbr is None:
+			pbr = 0
 		dps = rocks[i].get('dps')
+		if dps is None:
+			dps = 0
 		rcdp = rocks[i].get('rcdp')
+		if rcdp is None:
+			rcdp = 0
 		cdr = rocks[i].get('cdr')
+		if cdr is None:
+			cdr = 0
 		stock = rocks[i].get('stock')
+		if stock is None:
+			stock = 0
 		mining.append(Bronze(code=code,sales=sales,businessprofits = businessprofits, continuing = continuing, netincome = netincome, netincomeruling = netincomeruling, 
 							netincomenon = netincomenon, asset = asset, liabilities = liabilities, totalequities = totalequities, totalequitiesruling = totalequitiesruling, 
 							totalequitiesnon = totalequitiesnon, eqities = eqities, cashbusiness = cashbusiness, cashinvestment = cashinvestment,
