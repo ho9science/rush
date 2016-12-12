@@ -66,7 +66,7 @@ function alluvialmining(){
 	var condition = $('#condition').val();
 	var value = $('#value').val();
 	
-	var formdata = $('#washing-form').serialize();
+	var formdata = $('#washingForm').serialize();
 	
 	$.ajax({
 		url : "/alluvialmining/",
@@ -83,10 +83,24 @@ function alluvialmining(){
 				$("#result_tbody").append("<tr><td>no</td><td>result</td><td></td></tr>");	
 			}else{
 				$.each(data, function(i, item){
-					$("#result_tbody").append("<tr><td>"+(i+1)+"</td><td>"+item.pk+"</td><td></td></tr>");	
+					$("#result_tbody").append("<tr><td>"+(i+1)+"</td><td><a href='http://finance.naver.com/item/main.nhn?code="+item.pk+"'>"+item.pk+"</a></td><td></td></tr>");	
 				});
 			}
 		}
 	});
 }
+$(document).ready(function(){
+
+	$('#condAdd').click(function(){
+		$('#washingForm').append('<select name="condition" id="condition"><option value="per">PER</option>'
+            +'<option value="pbr">PBR</option></select>'
+        +'<select name="operator" id="operator">'
+            +'<option value="gt">></option>'
+            +'<option value="gte">>=</option>'
+            +'<option value="lt"><</option>'
+            +'<option value="lte"><=</option>'
+        +'</select>'
+        +'<input type="text" id="value" name="value" required>')
+	});
+});
 // using jQuery

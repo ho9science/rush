@@ -11,6 +11,7 @@ from django.http import QueryDict
 import json
 from django.core import serializers
 from django.views.decorators.csrf import csrf_exempt
+from django.db import transaction
 
 def post_new(request):
 	if request.method == "POST":
@@ -48,11 +49,12 @@ def post_gold(request):
 		gamgyul = serializers.serialize('json', jeju)
 		print(gamgyul)
 		return JsonResponse(gamgyul, safe=False)
-		
+
+@transaction.non_atomic_requests
 def mine_gold(request):
 	rocks=[]
 	mining=[]
-	for line in open('stock2015.json', 'r'):
+	for line in open('test.json', 'r'):
 		rocks.append(json.loads(line))
 
 	for i in range(0, len(rocks)):
@@ -173,17 +175,18 @@ def alluvialmining(request):
 		samdasu = request.body;
 		print(samdasu)
 		if not samdasu:
-			return JsonResponse({'samdasu':'none'})
+			return JsonResponse({})
 		else:
 			q = QueryDict(samdasu)
 			myDict = dict(q)
 			
-			ssamba = myDict.get('condition');
-			ssamja = myDict.get('operator');
+			condition = myDict.get('condition');
+			operator = myDict.get('operator');
 			value = myDict.get('value');
 			
 			ore = {}
-			ore.update({'{0}__{1}'.format(ssamba[0],ssamja[0]):value[0]})
+			for i in range(len(condition)):
+				ore.update({'{0}__{1}'.format(condition[i],operator[i]):value[i]})
 			
 			#ore.update({'{0}__{1}'.format('pbr','gt'):1});
 			jeju = Bronze.objects.filter(**ore).order_by('per')[:5]

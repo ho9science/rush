@@ -2,7 +2,7 @@
 {% block content %}
 	<h2>washing gold</h2>
     <div class="post">
-        <form method="POST" id="washing-form" name="washing-form">
+        <form method="POST" id="washingForm" name="washing-form">
         {% csrf_token %}
         <select name="condition" id="condition">
             <option value="per">PER</option>
@@ -15,6 +15,7 @@
             <option value="lte"><=</option>
         </select>
         <input type="text" id="value" name="value" required>
+        <button type="button" id="condAdd">추가</button>
         <button type="button" name="search" onclick="alluvialmining()">검색</button>
         </form>
         <div class="result_div">
