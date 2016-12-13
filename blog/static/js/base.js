@@ -80,8 +80,9 @@ function alluvialmining(){
 			console.log(json);
 			var data = JSON.parse(json);
 			if(data[0]==null){
-				$("#result_tbody").append("<tr><td>no</td><td>result</td><td></td></tr>");	
+				$("#result_tbody").append("<tr><td>no</td><td>result</td><td></td></tr>");
 			}else{
+				$("#result_tbody").append("<tr><th>ranking</th><th>code</th></tr>");
 				$.each(data, function(i, item){
 					$("#result_tbody").append("<tr><td>"+(i+1)+"</td><td><a href='http://finance.naver.com/item/main.nhn?code="+item.pk+"'>"+item.pk+"</a></td><td></td></tr>");	
 				});
